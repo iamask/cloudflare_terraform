@@ -24,18 +24,6 @@ provider "cloudflare" {
 }
 
 
-resource "cloudflare_zone_setting" "always_online_zone_setting" {
-  zone_id    = var.ZONE_ID
-  setting_id = "always_online"
-  value      = "on"
-}
-
-
-resource "cloudflare_zone_setting" "advanced_ddos_zone_setting" {
-  zone_id    = var.ZONE_ID
-  setting_id = "advanced_ddos"
-  value      = "on"
-}
 
 resource "cloudflare_zone_setting" "always_use_https_zone_setting" {
   zone_id    = var.ZONE_ID
