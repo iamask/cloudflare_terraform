@@ -8,8 +8,8 @@ resource "cloudflare_ruleset" "cache_rules_example" {
   rules = [
     {
       ref         = "cache_settings_custom_cache_key"
-      description = "Set cache settings and custom cache key for example.net"
-      expression  = "(http.host eq \"example.net\")"
+      description = "Set cache settings and custom cache key for api.tf.zxc.co.in"
+      expression  = "(http.host eq \" api.tf.zxc.co.in\")"
       action      = "set_cache_settings"
 
       action_parameters = {
