@@ -1,52 +1,58 @@
-resource "cloudflare_record" "wwe" {
+resource "cloudflare_dns_record" "wwe" {
   zone_id = var.ZONE_ID
   name    = "wwe"
-  value   = "34.93.22.64"
+  content   = "34.93.22.64"
   type    = "A"
   proxied = true
+  ttl = 1 
 }
 
-resource "cloudflare_record" "fallback" {
+resource "cloudflare_dns_record" "fallback" {
   zone_id = var.ZONE_ID
   name    = "fallback"
-  value   = "34.93.22.64"
+  content   = "34.93.22.64"
   type    = "A"
   proxied = true
+  ttl = 1 
 }
 
 
-resource "cloudflare_record" "wildcard" {
+resource "cloudflare_dns_record" "wildcard" {
   zone_id = var.ZONE_ID
   name    = "*"
-  value   = "34.93.22.64"
+  content   = "34.93.22.64"
   type    = "A"
   proxied = true
+  ttl = 1 
 }
 
-resource "cloudflare_record" "delhi" {
+resource "cloudflare_dns_record" "delhi" {
   zone_id = var.ZONE_ID
   name    = "delhi"
-  value   = "34.131.175.140"
+  content   = "34.131.175.140"
   type    = "A"
   proxied = true
+  ttl = 1 
 }
 
 
-resource "cloudflare_record" "api" {
+resource "cloudflare_dns_record" "api" {
   zone_id = var.ZONE_ID
   name    = "api"
-  value   = "34.131.175.40"
+  content   = "34.131.175.40"
   type    = "A"
   proxied = true
+  ttl = 1 
 }
 
 
-resource "cloudflare_record" "api2" {
+resource "cloudflare_dns_record" "api2" {
   zone_id = var.ZONE_ID
   name    = "api2"
-  value   = "34.131.175.40"
+  content   = "34.131.175.40"
   type    = "A"
   proxied = true
+  ttl = 1 
 }
 
 

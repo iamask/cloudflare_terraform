@@ -5,18 +5,18 @@ resource "cloudflare_ruleset" "transform_modify_request_headers" {
   kind        = "zone"
   phase       = "http_request_late_transform"
 
-  rules {
+  rules = [{
     action = "rewrite"
-    action_parameters {
-      headers {
-        name      = "X-Source"
-        operation = "set"
-        value     = "Cloudflare"
+    action_parameters = {
+      headers = {
+        X-Source = {
+          operation = "set"
+          value     = "Cloudflare"
+        }
       }
-    
     }
-    expression = "true"
+    expression  = "true"
     description = "Example HTTP Request Header Modification Rule"
-    enabled = true
-  }
+    enabled     = true
+  }]
 }
