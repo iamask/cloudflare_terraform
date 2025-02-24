@@ -45,12 +45,6 @@ resource "cloudflare_zone_setting" "always_use_https_zone_setting" {
 
 
 
-resource "cloudflare_zone_setting" "ciphers_zone_setting" {
-  zone_id    = var.ZONE_ID
-  setting_id = "ciphers"
-  hostname   = "app.tf.zxc.co.in"
-  value      = ["ECDHE-RSA-AES128-GCM-SHA256", "AES128-GCM-SHA256"]
-}
 
 
 module "dns" {
