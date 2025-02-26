@@ -5,32 +5,64 @@ resource "cloudflare_ruleset" "cache_rules_example" {
   kind        = "zone"
   phase       = "http_request_cache_settings"
 
-  rules = [
-    {
-      ref         = "cache_settings_custom_cache_key"
-      description = "Set cache settings and custom cache key for api.tf.zxc.co.in"
-      expression  = "(http.host eq \" api.tf.zxc.co.in\")"
-      action      = "set_cache_settings"
-
-      action_parameters = {
-        edge_ttl = {
-          mode    = "override_origin"
-          default = 60
-
-          status_code_ttl = [
-            {
-              status_code = 200  # Fixed: status_code should be a single number
-              value       = 50
+  rules = [{
+    action = "set_cache_settings"
+    action_parameters = {
+      edge_ttl = {
+        mode    = "override_origin"
+        default = 60
+        status_code_ttl = [
+          {
+            status_code = 200
+            value       = 51
+          },
+          {
+            status_code_range = {
+              from = 201
+              to   = 300
             }
-          ]
-        }
-
-        browser_ttl = {
-          mode = "respect_origin"
-        }
-
-        origin_error_page_passthru = false
+            value = 30
+          }
+        ]
       }
+      browser_ttl = {
+        mode = "respect_origin"
+      }
+      serve_stale = {
+        disable_stale_while_updating = true
+      }
+      respect_strong_etags = true
+      cache_key = {
+        ignore_query_strings_order = false
+        cache_deception_armor      = true
+        custom_key = {
+          query_string = {
+            exclude = {
+              values = ["*"]
+            }
+          }
+          header = {
+            include        = ["habc", "hdef"]
+            check_presence = ["habc_t", "hdef_t"]
+            exclude_origin = true
+          }
+          cookie = {
+            include        = ["cabc", "cdef"]
+            check_presence = ["cabc_t", "cdef_t"]
+          }
+          user = {
+            device_type = true
+            geo         = false
+          }
+          host = {
+            resolved = true
+          }
+        }
+      }
+      origin_error_page_passthru = false
     }
-  ]
+    expression  = "(http.host eq \"example.net\")"
+    description = "Set cache settings and custom cache key for example.net"
+    enabled     = true
+  }]
 }

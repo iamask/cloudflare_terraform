@@ -43,6 +43,14 @@ module "dns" {
 
 
 
+
+
+module "managed_rules" {
+  source    = "./security/managed_rules"
+  API_TOKEN = var.API_TOKEN
+  ZONE_ID   = var.ZONE_ID
+}
+
 module "rate_limit_rules" {
   source    = "./security/rate_limit"
   API_TOKEN = var.API_TOKEN
@@ -73,6 +81,13 @@ module "redirect_rules" {
   API_TOKEN = var.API_TOKEN
   ZONE_ID   = var.ZONE_ID
 }
+
+module "origin_rules" {
+  source    = "./rules/origin_rules"
+  API_TOKEN = var.API_TOKEN
+  ZONE_ID   = var.ZONE_ID
+}
+
 
 
 /*
