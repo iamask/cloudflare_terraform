@@ -15,7 +15,7 @@ resource "cloudflare_ruleset" "single_redirects_example" {
       "status_code": 301,
       "preserve_query_string": true,
       "target_url": {
-        "value": "/that"
+        "value": "/that1"
       }
     }
   },
