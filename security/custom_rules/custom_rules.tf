@@ -42,7 +42,7 @@ resource "cloudflare_ruleset" "zone_custom_firewall" {
 
  {
     action      = "block"
-    expression  = "(cf.waf.score lt 20)"
+    expression  = "(cf.waf.score lt 25)"
     description = "WAF Attack score : Attack"
     enabled     = true
   },
