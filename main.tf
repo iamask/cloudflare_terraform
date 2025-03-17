@@ -3,9 +3,7 @@ terraform {
     cloudflare = {
       source  = "cloudflare/cloudflare"
       version = "~> 5.0"
-
     }
-
   }
 }
 
@@ -22,7 +20,6 @@ terraform {
 provider "cloudflare" {
   api_token = var.API_TOKEN
 }
-
 
 
 resource "cloudflare_zone_setting" "always_use_https_zone_setting" {
