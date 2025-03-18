@@ -102,7 +102,7 @@ module "origin_rules" {
 
 
 module "custom_hostnames" {
-  source    = "./tls/custom_hostnamess"
+  source    = "./tls/custom_hostnames"
   API_TOKEN = var.API_TOKEN
   ZONE_ID   = var.ZONE_ID
 }
