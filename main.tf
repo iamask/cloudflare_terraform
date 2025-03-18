@@ -47,17 +47,6 @@ resource "cloudflare_zone_setting" "ipv6_zone_setting" {
   value      = "on"
 }
 
-resource "cloudflare_zone_setting" "min_tls_version_zone_setting" {
-  zone_id    = var.ZONE_ID
-  setting_id = "min_tls_version"
-  value      = "on"
-}
-
-resource "cloudflare_zone_setting" "proxy_read_timeout_zone_setting" {
-  zone_id    = var.ZONE_ID
-  setting_id = "proxy_read_timeout"
-  value      = "on"
-}
 
 
 
