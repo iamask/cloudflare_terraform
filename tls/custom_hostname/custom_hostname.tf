@@ -1,11 +1,11 @@
 resource "cloudflare_custom_hostname" "merchant1" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.netflix.com"
-  ssl {
+  ssl = {
     method = "http"
     type   = "dv"
   }
-  metadata = {
+  custom_metadata = {
     customer         = "premium"
     security_level   = "low"
     customer_id      = "1"
@@ -18,11 +18,11 @@ resource "cloudflare_custom_hostname" "merchant2" {
   zone_id              = var.ZONE_ID
   hostname             = "ajay.tf.zxc.co.in"
   custom_origin_server = "wwe.tf.zxc.co.in"
-  ssl {
+  ssl = {
     method = "http"
     type   = "dv"
   }
-  metadata = {
+  custom_metadata = {
     customer         = "premium"
     security_level   = "high"
     customer_id      = "2"
@@ -34,11 +34,11 @@ resource "cloudflare_custom_hostname" "merchant2" {
 resource "cloudflare_custom_hostname" "merchant3" {
   zone_id  = var.ZONE_ID
   hostname = "ajay2.tf.zxc.co.in"
-  ssl {
+  ssl = {
     method = "http"
     type   = "dv"
   }
-  metadata = {
+  custom_metadata = {
     customer         = "free"
     security_level   = "high"
     customer_id      = "3"
@@ -50,11 +50,11 @@ resource "cloudflare_custom_hostname" "merchant3" {
 resource "cloudflare_custom_hostname" "merchant4" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.cloudflare.com"
-  ssl {
+  ssl = {
     method = "txt"
     type   = "dv"
   }
-  metadata = {
+  custom_metadata = {
     customer         = "premium"
     security_level   = "high"
     customer_id      = "4"
@@ -66,11 +66,11 @@ resource "cloudflare_custom_hostname" "merchant4" {
 resource "cloudflare_custom_hostname" "merchant5" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.wednesday.com"
-  ssl {
+  ssl = {
     method = "txt"
     type   = "dv"
   }
-  metadata = {
+  custom_metadata = {
     customer         = "premium"
     security_level   = "low"
     customer_id      = "5"
@@ -82,11 +82,11 @@ resource "cloudflare_custom_hostname" "merchant5" {
 resource "cloudflare_custom_hostname" "merchant6" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.testing.com"
-  ssl {
+  ssl = {
     method = "txt"
     type   = "dv"
   }
-  metadata = {
+  custom_metadata = {
     customer         = "premium"
     security_level   = "high"
     customer_id      = "6"
