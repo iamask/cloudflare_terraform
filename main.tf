@@ -50,16 +50,11 @@ resource "cloudflare_zone_setting" "ipv6_zone_setting" {
 
 
 
-
-
 module "dns" {
   source    = "./dns"
   API_TOKEN = var.API_TOKEN
   ZONE_ID   = var.ZONE_ID
 }
-
-
-
 
 
 module "managed_rules" {
@@ -101,6 +96,13 @@ module "redirect_rules" {
 
 module "origin_rules" {
   source    = "./rules/origin_rules"
+  API_TOKEN = var.API_TOKEN
+  ZONE_ID   = var.ZONE_ID
+}
+
+
+module "custom_hostnames" {
+  source    = "./tls/custom_hostnamess"
   API_TOKEN = var.API_TOKEN
   ZONE_ID   = var.ZONE_ID
 }
