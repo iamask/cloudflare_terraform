@@ -2,7 +2,7 @@ resource "cloudflare_custom_hostname" "merchant1" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.netflix.com"
   ssl =  {
-    method = "txt"
+    method = "http"
   }
   custom_metadata = {
     customer         = "premium"
