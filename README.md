@@ -1,5 +1,3 @@
-# cloudflare_terraform
-
 This is a basic template to get started with Cloudflare after onboarding an Enterprise zone. State file is stored in terraform Cloud and integrated with Github actions.
 
 This uses Terraform Cloudflare Provider Version 5
