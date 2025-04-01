@@ -7,7 +7,7 @@ resource "cloudflare_dns_record" "wwe" {
   ttl = 1 
 }
 
-resource "cloudflare_dns_record" "wwe" {
+resource "cloudflare_dns_record" "ajayrrr" {
   zone_id = var.ZONE_ID
   name    = "ajayrrr"
   content   = "1.1.1.4"
