@@ -7,6 +7,15 @@ resource "cloudflare_dns_record" "wwe" {
   ttl = 1 
 }
 
+resource "cloudflare_dns_record" "wwe" {
+  zone_id = var.ZONE_ID
+  name    = "ajayrrr"
+  content   = "1.1.1.4"
+  type    = "A"
+  proxied = true
+  ttl = 1 
+}
+
 resource "cloudflare_dns_record" "fallback" {
   zone_id = var.ZONE_ID
   name    = "fallback"
