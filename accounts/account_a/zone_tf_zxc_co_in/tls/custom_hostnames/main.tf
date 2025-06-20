@@ -100,4 +100,4 @@ resource "cloudflare_custom_hostname" "merchant6" {
     region         = "EU"
     customer_noise = "high"
   }
-} 
+}
