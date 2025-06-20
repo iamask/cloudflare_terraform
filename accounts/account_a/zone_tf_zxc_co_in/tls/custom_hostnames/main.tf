@@ -9,8 +9,12 @@ resource "cloudflare_custom_hostname" "merchant1" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.netflix.com"
   ssl = {
-    method = "http"
-    type   = "dv"
+    method                = "http"
+    type                  = "dv"
+    bundle_method         = "ubiquitous"
+    certificate_authority = "google"
+    cloudflare_branding   = false
+    wildcard              = false
   }
   custom_metadata = {
     customer       = "premium"
@@ -26,8 +30,12 @@ resource "cloudflare_custom_hostname" "merchant2" {
   hostname             = "ajay.tf.zxc.co.in"
   custom_origin_server = "wwe.tf.zxc.co.in"
   ssl = {
-    method = "http"
-    type   = "dv"
+    method                = "http"
+    type                  = "dv"
+    bundle_method         = "ubiquitous"
+    certificate_authority = "google"
+    cloudflare_branding   = false
+    wildcard              = false
   }
   custom_metadata = {
     customer       = "premium"
@@ -42,8 +50,12 @@ resource "cloudflare_custom_hostname" "merchant3" {
   zone_id  = var.ZONE_ID
   hostname = "ajay2.tf.zxc.co.in"
   ssl = {
-    method = "http"
-    type   = "dv"
+    method                = "http"
+    type                  = "dv"
+    bundle_method         = "ubiquitous"
+    certificate_authority = "google"
+    cloudflare_branding   = false
+    wildcard              = false
   }
   custom_metadata = {
     customer       = "free"
@@ -58,8 +70,12 @@ resource "cloudflare_custom_hostname" "merchant4" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.cloudflare.com"
   ssl = {
-    method = "txt"
-    type   = "dv"
+    method                = "txt"
+    type                  = "dv"
+    bundle_method         = "ubiquitous"
+    certificate_authority = "google"
+    cloudflare_branding   = false
+    wildcard              = false
   }
   custom_metadata = {
     customer       = "premium"
@@ -74,8 +90,12 @@ resource "cloudflare_custom_hostname" "merchant5" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.wednesday.com"
   ssl = {
-    method = "txt"
-    type   = "dv"
+    method                = "txt"
+    type                  = "dv"
+    bundle_method         = "ubiquitous"
+    certificate_authority = "google"
+    cloudflare_branding   = false
+    wildcard              = false
   }
   custom_metadata = {
     customer       = "premium"
@@ -90,8 +110,12 @@ resource "cloudflare_custom_hostname" "merchant6" {
   zone_id  = var.ZONE_ID
   hostname = "checkout.testing.com"
   ssl = {
-    method = "txt"
-    type   = "dv"
+    method                = "txt"
+    type                  = "dv"
+    bundle_method         = "ubiquitous"
+    certificate_authority = "google"
+    cloudflare_branding   = false
+    wildcard              = false
   }
   custom_metadata = {
     customer       = "premium"
