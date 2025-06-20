@@ -5,7 +5,7 @@ module "zone_settings" {
   ZONE_ID   = var.ZONE_ID
 }
 
-# DNS Module
+# DNS Module.
 module "dns" {
   source    = "./dns/dns"
   API_TOKEN = var.API_TOKEN
