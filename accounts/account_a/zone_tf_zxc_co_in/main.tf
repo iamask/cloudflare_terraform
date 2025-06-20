@@ -1,25 +1,3 @@
-terraform {
-  required_providers {
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 5.0"
-    }
-  }
-}
-
-terraform {
-  cloud {
-    organization = "iamask"
-    workspaces {
-      name = "cloudflare"
-    }
-  }
-}
-
-provider "cloudflare" {
-  api_token = var.API_TOKEN
-}
-
 # Zone Settings Module
 module "zone_settings" {
   source    = "./zone_settings/zone_settings"
@@ -88,4 +66,4 @@ module "custom_hostnames" {
   source    = "./tls/custom_hostnames"
   API_TOKEN = var.API_TOKEN
   ZONE_ID   = var.ZONE_ID
-} 
+}
