@@ -38,7 +38,7 @@ resource "cloudflare_ruleset" "cache_rules_example" {
         custom_key = {
           query_string = {
             exclude = {
-              values = ["*"]
+              all = true
             }
           }
           header = {
