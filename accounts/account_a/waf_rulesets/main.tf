@@ -16,8 +16,8 @@ resource "cloudflare_ruleset" "account_waf_custom" {
     action      = "block"
     action_parameters = {
       response = {
-        status_code = 403
-        content     = "Access denied - Geographic restriction"
+        status_code  = 403
+        content      = "Access denied - Geographic restriction"
         content_type = "text/plain"
       }
     }
