@@ -35,6 +35,11 @@ variable "ZONE_ID" {
   type        = string
 }
 
+variable "ACCOUNT_ID" {
+  description = "Cloudflare Account ID"
+  type        = string
+}
+
 # Reference the zone-specific configuration
 module "tf_zxc_co_in" {
   source = "./accounts/account_a/zone_tf_zxc_co_in"
@@ -42,4 +47,13 @@ module "tf_zxc_co_in" {
   # Pass through the variables
   API_TOKEN = var.API_TOKEN
   ZONE_ID   = var.ZONE_ID
+}
+
+# Account-level WAF ruleset module
+module "account_waf" {
+  source = "./accounts/account_a/waf_rulesets"
+
+  # Pass through the variables
+  API_TOKEN  = var.API_TOKEN
+  ACCOUNT_ID = var.ACCOUNT_ID
 }
