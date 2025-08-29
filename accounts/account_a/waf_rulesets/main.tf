@@ -1,7 +1,7 @@
 # Account-level WAF Ruleset Configuration
-# Simple geo-blocking rule for test.zxc.co.in
+# Custom geo-blocking rule and management of existing root ruleset
 
-# Step 1: Create the Custom Ruleset
+# Step 1: Create Custom Ruleset at Account Level
 resource "cloudflare_ruleset" "account_waf_custom" {
   account_id  = var.ACCOUNT_ID
   name        = "Custom WAF Rules for test.zxc.co.in"
@@ -24,14 +24,14 @@ resource "cloudflare_ruleset" "account_waf_custom" {
   }]
 }
 
-# Step 2: Deploy the Custom Ruleset via Entry Point
+# Step 2: Import and manage existing root ruleset
+# Import command: terraform import module.zone_waf.cloudflare_ruleset.account_waf_entrypoint account/174f936387e2cf4c433752dc46ba6bb1/1c4cd4c02f38487291480b7824fca8e9
 resource "cloudflare_ruleset" "account_waf_entrypoint" {
   account_id  = var.ACCOUNT_ID
-  name        = "Account-level entry point ruleset"
-  description = "Deploy custom ruleset for zxc.co.in zones"
+  name        = "root"
+  description = ""
   kind        = "root"
   phase       = "http_request_firewall_custom"
-  depends_on  = [cloudflare_ruleset.account_waf_custom]
 
   rules = [{
     ref         = "deploy_custom_ruleset_zxc"
