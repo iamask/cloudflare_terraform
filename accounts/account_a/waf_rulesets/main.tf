@@ -6,7 +6,7 @@ resource "cloudflare_ruleset" "account_waf_custom" {
   phase       = "http_request_firewall_custom"
 
   rules = [{
-    ref         = "block_non_default_ports"
+    ref         = "block_non_default_ports."
     description = "Block ports other than 80 and 443"
     expression  = "(not cf.edge.server_port in {80 443})"
     action      = "block"
@@ -31,7 +31,7 @@ resource "cloudflare_ruleset" "account_waf_entrypoint" {
       id = cloudflare_ruleset.account_waf_custom.id
     }
   }]
-  
+
   lifecycle {
     # Prevent accidental recreation - we're managing an existing resource
     prevent_destroy = true
