@@ -1,40 +1,45 @@
+# Step 1: Create/update the custom ruleset with your rules
 resource "cloudflare_ruleset" "account_waf_custom" {
   account_id  = var.ACCOUNT_ID
   name        = "Custom ruleset blocking traffic in non-standard HTTP(S) ports"
-  description = ""
+  description = "Custom WAF rules for account"
   kind        = "custom"
   phase       = "http_request_firewall_custom"
 
   rules = [{
-    ref         = "block_non_default_ports."
     description = "Block ports other than 80 and 443"
     expression  = "(not cf.edge.server_port in {80 443})"
     action      = "block"
+    enabled     = true
   }]
 }
 
+# Step 2: Use PUT to update the existing root ruleset
+# NOTE: This will replace the existing root ruleset with ID: 1c4cd4c02f38487291480b7824fca8e9
+# Any existing rules in that ruleset will be replaced
 resource "cloudflare_ruleset" "account_waf_entrypoint" {
   account_id  = var.ACCOUNT_ID
   name        = "root"
-  description = ""
+  description = "Account-level WAF Custom Phase"
   kind        = "root"
   phase       = "http_request_firewall_custom"
-  depends_on  = [cloudflare_ruleset.account_waf_custom]
-
-  # Add our custom ruleset execution rule
+  
+  # Deploy our custom ruleset for specific zones
   rules = [{
-    ref         = "deploy_custom_ruleset_zxc"
-    description = "Deploy custom ruleset for example.com"
-    expression  = "(cf.zone.name eq \"example.com\") and (cf.zone.plan eq \"ENT\")"
+    description = "Deploy custom ruleset for zxc.co.in zones"
+    expression  = "(cf.zone.name contains \"zxc.co.in\")"
     action      = "execute"
     action_parameters = {
       id = cloudflare_ruleset.account_waf_custom.id
     }
+    enabled = true
   }]
 
+  depends_on = [cloudflare_ruleset.account_waf_custom]
+  
   lifecycle {
-    # Prevent accidental recreation - we're managing an existing resource
-    prevent_destroy = true
+    # This will replace the existing root ruleset
+    create_before_destroy = false
   }
 }
 
@@ -43,7 +48,7 @@ output "custom_ruleset_id" {
   description = "ID of the custom WAF ruleset"
 }
 
-output "entrypoint_ruleset_id" {
+output "root_ruleset_id" {
   value       = cloudflare_ruleset.account_waf_entrypoint.id
-  description = "ID of the root ruleset that deploys the custom ruleset"
+  description = "ID of the root ruleset"
 }
