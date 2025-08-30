@@ -10,3 +10,9 @@ variable "API_TOKEN" {
   type        = string
   sensitive   = true
 }
+
+variable "ZONE_ID" {
+  description = "Cloudflare Zone ID for zone-level deployment (optional)"
+  type        = string
+  default     = ""
+}
