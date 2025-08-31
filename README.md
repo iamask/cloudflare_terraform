@@ -11,6 +11,7 @@ cloudflare_terraform/
 ├── accounts/
 │   ├── account_a/
 │   │   ├── custom_rulesets/         # Account-level custom WAF rules
+│   │   ├── waf_managed_rulesets/    # Cloudflare & OWASP managed rulesets
 │   │   ├── ratelimit_rulesets/      # Account-level rate limiting
 │   │   └── zone_tf_zxc_co_in/       # Zone-specific configuration
 │   │       ├── dns/                 # DNS records
@@ -28,6 +29,7 @@ cloudflare_terraform/
 
 **Account-Level:**
 - Custom WAF rulesets
+- Managed WAF (Cloudflare & OWASP Core Ruleset)
 - Rate limiting rules
 
 **Zone-Level:**
