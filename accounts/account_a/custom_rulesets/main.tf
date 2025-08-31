@@ -87,7 +87,7 @@ resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
     },
     {
       action     = "execute"
-      expression = "(http.host eq \"api.zxc.co.in\" or http.request.uri.path contains \"/test/\")"
+      expression = "(http.host eq \"api22.zxc.co.in\" or http.request.uri.path contains \"/test/\")"
       action_parameters = {
         id = cloudflare_ruleset.account_custom_ruleset_2.id
       }
