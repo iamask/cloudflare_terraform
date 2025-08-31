@@ -57,3 +57,12 @@ module "account_waf" {
   API_TOKEN  = var.API_TOKEN
   ACCOUNT_ID = var.ACCOUNT_ID
 }
+
+# Account-level Rate Limiting ruleset module
+module "account_ratelimit" {
+  source = "./accounts/account_a/ratelimit_rulesets"
+
+  # Pass through the variables
+  API_TOKEN  = var.API_TOKEN
+  ACCOUNT_ID = var.ACCOUNT_ID
+}

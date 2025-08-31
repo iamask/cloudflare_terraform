@@ -44,7 +44,7 @@ resource "cloudflare_ruleset" "account_custom_ruleset" {
   ]
 }
 
-# Step 2: Deploy via account-level ruleset
+# Step 2: Deploy via account-level custom ruleset
 resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
   account_id  = var.ACCOUNT_ID
   name        = "Account WAF Custom Rules Deployment"
