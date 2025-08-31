@@ -55,30 +55,9 @@ resource "cloudflare_ruleset" "account_custom_ruleset_2" {
   rules = [
     {
       action      = "block"
-      description = "Block requests without API key header"
+      description = "Block non-standard ports"
       enabled     = true
-      expression  = "(http.request.uri.path contains \"/api/\" and not http.request.headers[\"x-api-key\"][0])"
-    },
-    {
-      action      = "block"
-      description = "Block SQL injection attempts"
-      enabled     = true
-      expression  = "(http.request.uri.query contains \"UNION\" or http.request.uri.query contains \"SELECT\" or http.request.body.raw contains \"DROP TABLE\")"
-    },
-    {
-      action = "challenge"
-      action_parameters = {
-        version = "managed"
-      }
-      description = "Challenge unusual user agents on API endpoints"
-      enabled     = true
-      expression  = "(http.request.uri.path contains \"/api/\" and not http.user_agent contains any {\"Mozilla\" \"Chrome\" \"Safari\" \"curl\" \"Postman\"})"
-    },
-    {
-      action      = "block"
-      description = "Block oversized requests to API"
-      enabled     = true
-      expression  = "(http.request.uri.path contains \"/api/\" and http.request.body.size > 10485760)"
+      expression  = "(not cf.edge.server_port in {80 443})"
     }
   ]
 }
