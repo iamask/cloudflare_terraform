@@ -62,18 +62,21 @@ resource "cloudflare_ruleset" "account_custom_ruleset_2" {
   ]
 }
 
-# Step 3: Deploy both rulesets via account-level entrypoint
-resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
+# Step 3: Deploy rulesets via separate smaller entrypoints
+
+# Entrypoint for main website and demo sites
+resource "cloudflare_ruleset" "entrypoint_security_sites" {
   account_id  = var.ACCOUNT_ID
-  name        = "Account WAF Custom Rules Deployment"
-  description = "Execute account-level custom rules in this zone"
+  name        = "Security Sites WAF Deployment"
+  description = "Execute security rules for main and demo sites"
   kind        = "root"
   phase       = "http_request_firewall_custom"
 
-  depends_on = [
-    cloudflare_ruleset.account_custom_ruleset_1,
-    cloudflare_ruleset.account_custom_ruleset_2
-  ]
+  depends_on = [cloudflare_ruleset.account_custom_ruleset_1]
+
+  lifecycle {
+    create_before_destroy = true  # Minimize downtime during changes
+  }
 
   rules = [
     {
@@ -82,16 +85,7 @@ resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
       action_parameters = {
         id = cloudflare_ruleset.account_custom_ruleset_1.id
       }
-      description = "Execute security custom rules"
-      enabled     = true
-    },
-    {
-      action     = "execute"
-      expression = "(http.host eq \"api.zxc.co.in\" or http.request.uri.path contains \"/test/\")"
-      action_parameters = {
-        id = cloudflare_ruleset.account_custom_ruleset_2.id
-      }
-      description = "Execute API protection custom rules"
+      description = "Execute security custom rules for main site"
       enabled     = true
     },
     {
@@ -100,7 +94,34 @@ resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
       action_parameters = {
         id = cloudflare_ruleset.account_custom_ruleset_1.id
       }
-      description = "reuse Account Custom WAF Rules - Security (account_custom_ruleset_1)"
+      description = "Execute security custom rules for demo site"
+      enabled     = true
+    }
+  ]
+}
+
+# Separate entrypoint for API protection
+resource "cloudflare_ruleset" "entrypoint_api_protection" {
+  account_id  = var.ACCOUNT_ID
+  name        = "API Protection WAF Deployment"
+  description = "Execute API protection rules"
+  kind        = "root"
+  phase       = "http_request_firewall_custom"
+
+  depends_on = [cloudflare_ruleset.account_custom_ruleset_2]
+
+  lifecycle {
+    create_before_destroy = true  # Minimize downtime during changes
+  }
+
+  rules = [
+    {
+      action     = "execute"
+      expression = "(http.host eq \"api.zxc.co.in\" or http.request.uri.path contains \"/test/\")"
+      action_parameters = {
+        id = cloudflare_ruleset.account_custom_ruleset_2.id
+      }
+      description = "Execute API protection custom rules"
       enabled     = true
     }
   ]
