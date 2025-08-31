@@ -19,7 +19,7 @@ resource "cloudflare_ruleset" "account_custom_rules" {
       action      = "block"
       description = "Block US traffic to www.zxc.co.in"
       enabled     = true
-      expression  = "(http.host eq \"www.zxc.co.in\" and ip.geoip.country eq \"US\")"
+      expression  = "(http.host eq \"www.zxc.co.in\" and ip.geoip.country eq \"IN\")"
     },
     {
       action = "challenge"
@@ -73,6 +73,6 @@ output "custom_ruleset_id" {
 }
 
 output "zone_deployment_status" {
-  value = var.ZONE_ID != "" ? "✓ Custom rules deployed to zone ${var.ZONE_ID}" : "⚠ Add ZONE_ID variable to deploy to a zone"
+  value       = var.ZONE_ID != "" ? "✓ Custom rules deployed to zone ${var.ZONE_ID}" : "⚠ Add ZONE_ID variable to deploy to a zone"
   description = "Zone deployment status"
 }
