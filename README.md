@@ -60,6 +60,20 @@ terraform plan
 terraform apply
 ```
 
+## ⚠️ Important Warning
+
+**Ruleset Modification Behavior**: Any change to the `rules` array in Cloudflare rulesets causes Terraform to replace the entire ruleset (delete & recreate).
+
+```hcl
+# Example: Adding/removing/modifying ANY rule causes full replacement
+rules = [
+  { action = "block", expression = "..." },  # Existing rule
+  { action = "log", expression = "..." }     # ← Adding this replaces entire ruleset
+]
+```
+
+This applies to both custom rulesets and entrypoint rulesets, causing brief traffic disruption during replacement.
+
 ## 📚 References
 
 - [Cloudflare Provider Docs](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs)
