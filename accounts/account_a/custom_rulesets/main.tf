@@ -100,7 +100,7 @@ resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
       action_parameters = {
         id = cloudflare_ruleset.account_custom_ruleset_1.id
       }
-      description = "reuse account_custom_ruleset_1 for demo2 "
+      description = "reuse Account Custom WAF Rules - Security (account_custom_ruleset_1)"
       enabled     = true
     }
   ]
