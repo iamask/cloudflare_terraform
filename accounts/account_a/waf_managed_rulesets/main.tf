@@ -10,16 +10,16 @@ resource "cloudflare_ruleset" "account_managed_waf_entrypoint" {
   rules = [
     {
       action     = "execute"
-      expression = "(http.host in {\"www.zxc.co.in\" \"api.zxc.co.in\" \"demo2.zxc.co.in\"})"
+      expression = "(http.host in {\"www1.zxc.co.in\" \"api.zxc.co.in\" \"demo2.zxc.co.in\"})"
       action_parameters = {
-        id = "efb7b8c949ac4650a09736fc376e9aee"  # Cloudflare Managed Ruleset
+        id      = "efb7b8c949ac4650a09736fc376e9aee" # Cloudflare Managed Ruleset
         version = "latest"
         overrides = {
           enabled = true
           rules = [
             {
-              id = "5de7edfa648c4d6891dc3e7f84534ffa"  # Anomaly Detection
-              action = "log"
+              id      = "5de7edfa648c4d6891dc3e7f84534ffa" # Anomaly Detection
+              action  = "log"
               enabled = true
             }
           ]
@@ -32,19 +32,19 @@ resource "cloudflare_ruleset" "account_managed_waf_entrypoint" {
       action     = "execute"
       expression = "(http.host in {\"www.zxc.co.in\" \"api.zxc.co.in\"})"
       action_parameters = {
-        id = "4814384a9e5d4991b9815dcfc25d2f1f"  # OWASP Core Ruleset
+        id      = "4814384a9e5d4991b9815dcfc25d2f1f" # OWASP Core Ruleset
         version = "latest"
         overrides = {
           enabled = true
-          action = "block"
+          action  = "block"
           categories = [
             {
               category = "paranoia-level-1"
-              enabled = true
+              enabled  = true
             },
             {
               category = "paranoia-level-2"
-              enabled = false
+              enabled  = false
             }
           ]
         }
