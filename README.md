@@ -1,40 +1,62 @@
-This is a basic template to get started with Cloudflare after onboarding an Enterprise zone. State file is stored in terraform Cloud and integrated with Github actions.
+# Cloudflare Terraform Configuration
 
-This uses Terraform Cloudflare Provider Version 5
+Enterprise zone and account-level configuration using Terraform Provider v5. State managed by Terraform Cloud with GitHub Actions integration.
 
-- https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/guides/version-5-upgrade
+## 📁 Project Structure
 
-**Template will update** :
+```
+cloudflare_terraform/
+├── main.tf                           # Root configuration
+├── terraform.tfvars.example          # Example variables
+├── accounts/
+│   └── account_a/
+│       ├── custom_rulesets/         # Account-level custom WAF rules
+│       ├── ratelimit_rulesets/      # Account-level rate limiting
+│       └── zone_tf_zxc_co_in/       # Zone-specific configuration
+│           ├── dns/                 # DNS records
+│           ├── security/            # WAF, custom rules, rate limiting
+│           ├── rules/               # Transform, redirect, cache rules
+│           ├── tls/                 # SSL/TLS settings
+│           └── zone_settings/       # Zone-level settings
+```
 
-- Zone level setting
-- DNS
-- WAF Managed rules
-- Custom rules
-- Rate limiting
-- Transform rules
-- Redirect rules
-- Cache rules
+## 🚀 Features
 
-#NXT
+**Account-Level:**
+- Custom WAF rulesets
+- Rate limiting rules
 
-- Zero Trust
-- Cloudflare Access
+**Zone-Level:**
+- DNS management
+- Security (WAF, custom rules, rate limiting)
+- Rules (transform, redirect, cache, origin)
+- TLS/SSL configuration
+- Zone settings
 
-  **Reference** :
+## 📋 Requirements
 
-  - https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs
-  - https://developers.cloudflare.com/terraform/
+- Terraform >= 1.5.0
+- Cloudflare Provider ~> 5.0
+- Cloudflare API Token ([Create Token](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/))
+- Account ID & Zone ID ([Find IDs](https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/))
 
-  **Steps**:
+## 🔧 Quick Start
 
-- clone the repo
-- run > "Terraform init"
-- run > "Terraform plan"
-- run > "Terraform apply"
+```bash
+# Clone repository
+git clone <repository-url>
 
-- **Note**: Terraform plan and apply command will prompt for API token and zone ID
+# Initialize Terraform
+terraform init
 
-  **Reference**
+# Review changes
+terraform plan
 
-- https://developers.cloudflare.com/fundamentals/api/get-started/create-token/
-- https://developers.cloudflare.com/fundamentals/setup/find-account-and-zone-ids/
+# Apply configuration
+terraform apply
+```
+
+## 📚 References
+
+- [Cloudflare Provider Docs](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs)
+- [Terraform + Cloudflare Guide](https://developers.cloudflare.com/terraform/)
