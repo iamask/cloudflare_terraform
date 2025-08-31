@@ -74,6 +74,29 @@ rules = [
 
 This applies to both custom rulesets and entrypoint rulesets, causing brief traffic disruption during replacement.
 
+### 💡 Mitigation Strategies
+
+**1. Use Multiple Smaller Rulesets**
+```hcl
+# Instead of one large ruleset, split by purpose
+resource "cloudflare_ruleset" "security_rules" { ... }     # Security-focused rules
+resource "cloudflare_ruleset" "api_rules" { ... }          # API protection rules
+resource "cloudflare_ruleset" "geo_rules" { ... }          # Geo-blocking rules
+# Changes to one ruleset won't affect others
+```
+
+**2. Use Lifecycle Meta-Argument**
+```hcl
+resource "cloudflare_ruleset" "account_custom_ruleset" {
+  # ... ruleset configuration ...
+  
+  lifecycle {
+    create_before_destroy = true  # Creates new ruleset before destroying old one
+  }
+}
+# Minimizes downtime during replacement
+```
+
 ## 📚 References
 
 - [Cloudflare Provider Docs](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs)
