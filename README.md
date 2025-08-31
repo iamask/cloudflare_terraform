@@ -60,19 +60,30 @@ terraform plan
 terraform apply
 ```
 
-## ⚠️ Important Warning
+## ⚠️ Important Note
 
-**Ruleset Modification Behavior**: Any change to the `rules` array in Cloudflare rulesets causes Terraform to replace the entire ruleset (delete & recreate).
+**Ruleset Modification Behavior**: 
+
+✅ **In-place updates** (no downtime):
+- Modifying rule expressions (e.g., changing hostnames)
+- Updating descriptions or enabled status
+- Simple property changes within existing rules
+
+❌ **Full replacement** (brief disruption):
+- Adding or removing rules from the array
+- Changing fundamental properties (kind, phase)
+- Major structural changes to the ruleset
 
 ```hcl
-# Example: Adding/removing/modifying ANY rule causes full replacement
+# Example: Expression changes = UPDATE
+expression = "host eq \"api.example.com\"" → "host eq \"api2.example.com\""  # ✅ In-place update
+
+# Example: Adding/removing rules = REPLACE
 rules = [
-  { action = "block", expression = "..." },  # Existing rule
-  { action = "log", expression = "..." }     # ← Adding this replaces entire ruleset
+  { action = "block", ... },  # Existing
+  { action = "log", ... }     # ← Adding new rule causes replacement
 ]
 ```
-
-This applies to both custom rulesets and entrypoint rulesets, causing brief traffic disruption during replacement.
 
 ### 💡 Mitigation Strategies
 
