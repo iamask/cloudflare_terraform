@@ -57,13 +57,13 @@ resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
 
   rules = [
     {
-      action = "execute"
+      action     = "execute"
+      expression = "(not cf.edge.server_port in {80 443})"
       action_parameters = {
         id = cloudflare_ruleset.account_custom_ruleset.id
       }
       description = "Execute account custom rules"
       enabled     = true
-      expression  = "true"
     }
   ]
 }
