@@ -58,7 +58,7 @@ resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
   rules = [
     {
       action     = "execute"
-      expression = "(not cf.edge.server_port in {80 443})"
+      expression = "(http.host eq \"www.zxc.co.in\")"
       action_parameters = {
         id = cloudflare_ruleset.account_custom_ruleset.id
       }
