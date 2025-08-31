@@ -1,4 +1,4 @@
-# Root configuration that references the zone-specific configuration
+# Root configuration that references the zone-specific configuration and account level configuration
 # This file is used by Terraform Cloud to find the actual configuration
 
 terraform {
@@ -49,14 +49,16 @@ module "tf_zxc_co_in" {
   ZONE_ID   = var.ZONE_ID
 }
 
-# Account-level WAF ruleset module
-module "account_waf" {
-  source = "./accounts/account_a/waf_rulesets"
+# Account-level Custom ruleset module
+module "account_custom_rules" {
+  source = "./accounts/account_a/custom_rulesets"
 
   # Pass through the variables
   API_TOKEN  = var.API_TOKEN
   ACCOUNT_ID = var.ACCOUNT_ID
 }
+
+
 
 # Account-level Rate Limiting ruleset module
 module "account_ratelimit" {
