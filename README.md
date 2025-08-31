@@ -9,16 +9,20 @@ cloudflare_terraform/
 ├── main.tf                           # Root configuration
 ├── terraform.tfvars.example          # Example variables
 ├── accounts/
-│   └── account_a/
-│       ├── custom_rulesets/         # Account-level custom WAF rules
-│       ├── ratelimit_rulesets/      # Account-level rate limiting
-│       └── zone_tf_zxc_co_in/       # Zone-specific configuration
-│           ├── dns/                 # DNS records
-│           ├── security/            # WAF, custom rules, rate limiting
-│           ├── rules/               # Transform, redirect, cache rules
-│           ├── tls/                 # SSL/TLS settings
-│           └── zone_settings/       # Zone-level settings
+│   ├── account_a/
+│   │   ├── custom_rulesets/         # Account-level custom WAF rules
+│   │   ├── ratelimit_rulesets/      # Account-level rate limiting
+│   │   └── zone_tf_zxc_co_in/       # Zone-specific configuration
+│   │       ├── dns/                 # DNS records
+│   │       ├── security/            # WAF, custom rules, rate limiting
+│   │       ├── rules/               # Transform, redirect, cache rules
+│   │       ├── tls/                 # SSL/TLS settings
+│   │       └── zone_settings/       # Zone-level settings
+│   └── account_b/                   # Additional account configuration
+│       └── main.tf                  # Account B configuration (to be defined)
 ```
+
+> **Note:** Additional accounts can be configured similarly under the `accounts/` directory to manage multi-account deployments.
 
 ## 🚀 Features
 
