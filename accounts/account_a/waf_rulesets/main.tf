@@ -1,7 +1,7 @@
 # Account-Level Custom WAF Rules using Cloudflare Terraform Provider v5
 
 # Step 1: Create custom ruleset
-resource "cloudflare_ruleset" "account_custom_rules" {
+resource "cloudflare_ruleset" "account_custom_ruleset" {
   account_id  = var.ACCOUNT_ID
   name        = "Account Custom WAF Rules"
   description = "Custom WAF ruleset for account-level rules"
@@ -46,19 +46,20 @@ resource "cloudflare_ruleset" "account_custom_rules" {
 
 # Step 2: Deploy via zone-level ruleset (alternative approach)
 # Since account already has a root ruleset, deploy at zone level instead
-resource "cloudflare_ruleset" "zone_execute_custom_rules" {
-  count       = var.ZONE_ID != "" ? 1 : 0
-  zone_id     = var.ZONE_ID
-  name        = "Zone WAF Custom Rules Deployment"
+resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
+  account_id  = var.ACCOUNT_ID
+  name        = "Account WAF Custom Rules Deployment"
   description = "Execute account-level custom rules in this zone"
-  kind        = "zone"
+  kind        = "root"
   phase       = "http_request_firewall_custom"
+
+  depends_on = [cloudflare_ruleset.account_custom_ruleset]
 
   rules = [
     {
       action = "execute"
       action_parameters = {
-        id = cloudflare_ruleset.account_custom_rules.id
+        id = cloudflare_ruleset.account_custom_ruleset.id
       }
       description = "Execute account custom rules"
       enabled     = true
@@ -67,12 +68,7 @@ resource "cloudflare_ruleset" "zone_execute_custom_rules" {
   ]
 }
 
-output "custom_ruleset_id" {
-  value       = cloudflare_ruleset.account_custom_rules.id
-  description = "ID of the custom WAF ruleset"
-}
-
-output "zone_deployment_status" {
-  value       = var.ZONE_ID != "" ? "✓ Custom rules deployed to zone ${var.ZONE_ID}" : "⚠ Add ZONE_ID variable to deploy to a zone"
-  description = "Zone deployment status"
+output "account_deployment_status" {
+  value       = "✓ Custom rules deployed to account ${var.ACCOUNT_ID}"
+  description = "Account deployment status"
 }
