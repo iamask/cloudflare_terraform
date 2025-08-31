@@ -44,8 +44,7 @@ resource "cloudflare_ruleset" "account_custom_ruleset" {
   ]
 }
 
-# Step 2: Deploy via zone-level ruleset (alternative approach)
-# Since account already has a root ruleset, deploy at zone level instead
+# Step 2: Deploy via account-level ruleset
 resource "cloudflare_ruleset" "account_firewall_custom_entrypoint" {
   account_id  = var.ACCOUNT_ID
   name        = "Account WAF Custom Rules Deployment"
