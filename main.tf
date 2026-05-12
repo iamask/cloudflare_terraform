@@ -2,19 +2,19 @@
 # This file is used by Terraform Cloud to find the actual configuration
 
 terraform {
-  required_providers {
-    cloudflare = {
-      source  = "cloudflare/cloudflare"
-      version = "~> 5.0"
-    }
-  }
-}
+  required_version = ">= 1.5.0"
 
-terraform {
   cloud {
     organization = "iamask"
     workspaces {
       name = "cloudflare"
+    }
+  }
+
+  required_providers {
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 5.0"
     }
   }
 }
@@ -44,24 +44,20 @@ variable "ACCOUNT_ID" {
 module "tf_zxc_co_in" {
   source = "./accounts/account_a/zone_tf_zxc_co_in"
 
-  API_TOKEN = var.API_TOKEN
-  ZONE_ID   = var.ZONE_ID
+  ZONE_ID = var.ZONE_ID
 }
 
 # Account-level Custom ruleset module
 module "account_custom_rules" {
   source = "./accounts/account_a/custom_rulesets"
 
-  API_TOKEN  = var.API_TOKEN
   ACCOUNT_ID = var.ACCOUNT_ID
 }
-
 
 # Account-level Rate Limiting ruleset module
 module "account_ratelimit" {
   source = "./accounts/account_a/ratelimit_rulesets"
 
-  API_TOKEN  = var.API_TOKEN
   ACCOUNT_ID = var.ACCOUNT_ID
 }
 
@@ -69,6 +65,5 @@ module "account_ratelimit" {
 module "account_managed_waf" {
   source = "./accounts/account_a/waf_managed_rulesets"
 
-  API_TOKEN  = var.API_TOKEN
   ACCOUNT_ID = var.ACCOUNT_ID
 }

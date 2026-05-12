@@ -8,7 +8,7 @@ resource "cloudflare_ruleset" "zone_custom_firewall" {
   rules = [{
     action      = "block"
     expression  = "(ip.geoip.country in {\"CN\" \"PK\" \"RU\" \"IN\"})"
-    description = "Geo Block for POC3"
+    description = "Geo Block - restricted countries"
     enabled     = true
     },
 
@@ -16,13 +16,6 @@ resource "cloudflare_ruleset" "zone_custom_firewall" {
       action      = "block"
       expression  = "(not cf.edge.server_port in {80 443})"
       description = "Block ports other than 80 and 443"
-      enabled     = true
-    },
-
-    {
-      action      = "block"
-      expression  = "(ip.geoip.country in {\"CN\" \"PK\" \"RU\" \"IN\"})"
-      description = "Geo Block for POC"
       enabled     = true
     },
 
@@ -36,7 +29,7 @@ resource "cloudflare_ruleset" "zone_custom_firewall" {
     {
       action      = "block"
       expression  = "(cf.threat_score gt 80)"
-      description = "Log IP Threatscore"
+      description = "Block high threat score IPs"
       enabled     = true
     },
 
@@ -67,4 +60,4 @@ resource "cloudflare_ruleset" "zone_custom_firewall" {
       description = "Bot Check : Likely Automated"
       enabled     = true
   }]
-} 
+}

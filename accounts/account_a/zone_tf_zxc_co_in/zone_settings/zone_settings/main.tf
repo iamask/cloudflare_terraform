@@ -21,4 +21,4 @@ resource "cloudflare_zone_setting" "ipv6_zone_setting" {
   zone_id    = var.ZONE_ID
   setting_id = "ipv6"
   value      = "on"
-} 
+}

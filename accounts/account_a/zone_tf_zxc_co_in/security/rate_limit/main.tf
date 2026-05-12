@@ -43,4 +43,4 @@ resource "cloudflare_ruleset" "zone_rl" {
       description = "RL baseline 3 (Slow and Low)- 2000/10Min"
       enabled     = true
   }]
-} 
+}

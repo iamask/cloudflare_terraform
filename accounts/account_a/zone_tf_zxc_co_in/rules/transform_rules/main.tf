@@ -19,4 +19,4 @@ resource "cloudflare_ruleset" "transform_modify_request_headers" {
     description = "Example HTTP Request Header Modification Rule"
     enabled     = true
   }]
-} 
+}

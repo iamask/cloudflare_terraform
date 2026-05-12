@@ -13,16 +13,16 @@ resource "cloudflare_ruleset" "account_ratelimit_ruleset" {
       action = "block"
       action_parameters = {
         response = {
-          status_code = 429
-          content = "Too many requests"
+          status_code  = 429
+          content      = "Too many requests"
           content_type = "text/plain"
         }
       }
       ratelimit = {
-        characteristics = ["cf.colo.id", "ip.src"]
-        period = 60
+        characteristics     = ["cf.colo.id", "ip.src"]
+        period              = 60
         requests_per_period = 50
-        mitigation_timeout = 600
+        mitigation_timeout  = 600
       }
       description = "Rate limit per IP - 50 requests per minute"
       enabled     = true
@@ -32,16 +32,16 @@ resource "cloudflare_ruleset" "account_ratelimit_ruleset" {
       action = "block"
       action_parameters = {
         response = {
-          status_code = 429
-          content = "Rate limit exceeded"
+          status_code  = 429
+          content      = "Rate limit exceeded"
           content_type = "text/plain"
         }
       }
       ratelimit = {
-        characteristics = ["cf.colo.id", "ip.src", "http.request.uri.path"]
-        period = 10
+        characteristics     = ["cf.colo.id", "ip.src", "http.request.uri.path"]
+        period              = 10
         requests_per_period = 10
-        mitigation_timeout = 60
+        mitigation_timeout  = 60
       }
       description = "Strict rate limit for login endpoint"
       enabled     = true
@@ -53,10 +53,10 @@ resource "cloudflare_ruleset" "account_ratelimit_ruleset" {
         version = "managed"
       }
       ratelimit = {
-        characteristics = ["cf.colo.id", "http.request.headers[\"x-api-key\"][0]"]
-        period = 3600
+        characteristics     = ["cf.colo.id", "http.request.headers[\"x-api-key\"][0]"]
+        period              = 3600
         requests_per_period = 1000
-        mitigation_timeout = 3600
+        mitigation_timeout  = 3600
       }
       description = "Challenge API key abuse - 1000 requests per hour"
       enabled     = true
@@ -65,10 +65,10 @@ resource "cloudflare_ruleset" "account_ratelimit_ruleset" {
     {
       action = "log"
       ratelimit = {
-        characteristics = ["cf.colo.id", "ip.src"]
-        period = 60
+        characteristics     = ["cf.colo.id", "ip.src"]
+        period              = 60
         requests_per_period = 100
-        mitigation_timeout = 0
+        mitigation_timeout  = 0
       }
       description = "Log high request rate patterns"
       enabled     = true

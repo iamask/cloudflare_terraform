@@ -28,4 +28,4 @@ resource "cloudflare_ruleset" "zone_level_managed_waf" {
       description = "Execute Cloudflare OWASP Core Ruleset on my zone-level phase entry point ruleset"
       enabled     = true
   }]
-} 
+}

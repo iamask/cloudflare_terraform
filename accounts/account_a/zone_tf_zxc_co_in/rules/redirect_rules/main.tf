@@ -21,4 +21,4 @@ resource "cloudflare_ruleset" "single_redirects_example" {
     "enabled" : true
     }
   ]
-} 
+}

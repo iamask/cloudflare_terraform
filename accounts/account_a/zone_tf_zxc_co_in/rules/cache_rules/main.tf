@@ -65,4 +65,4 @@ resource "cloudflare_ruleset" "cache_rules_example" {
     description = "Set cache settings and custom cache key for example.net"
     enabled     = true
   }]
-} 
+}

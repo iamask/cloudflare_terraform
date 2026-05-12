@@ -16,4 +16,4 @@ resource "cloudflare_ruleset" "http_origin_noisy" {
     description = "Change origins for noisy customers"
     enabled     = true
   }]
-} 
+}
